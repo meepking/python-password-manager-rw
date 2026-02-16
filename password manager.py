@@ -4,6 +4,7 @@ import platform
 import subprocess
 import time
 from getpass import getpass
+from config import *
 try:
     import cryptography
 except ModuleNotFoundError:
@@ -49,7 +50,7 @@ if current_os == 'Windows':
     else:
         pass
 
-    #config_folder = folder_check()
+    config_folder = folder_check()
 
     sleep(1)
     #root_folder = root_folder_check()
