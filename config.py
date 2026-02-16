@@ -68,3 +68,32 @@ def root_folder_check():
             return 'C:/passwords'
         elif opt_1 == 'c' or opt_1 == 'C':
             print('so you want a custom path? make sure that it doesn\'t have any symbols that would not be allowed in folder creation')
+            sleep(2)
+            while True:
+                folder_path_2_set = input('[enter the path you want to set as root folder(must be full path)]:')
+                sleep(1)
+                if os.path.exists(folder_path_2_set):
+                    print('folder already present, no need to add')
+                    sleep(1)
+                    print('writing to file...')
+                    f = open(root_folder_file, 'w')
+                    f.write(folder_path_2_set)
+                    f.close()
+                    sleep(1)
+                    print('done, path now set as: ' + folder_path_2_set)
+                    return folder_path_2_set
+                else:
+                    print('folder not present, will now attempt to make folder path...')
+                    sleep(2)
+                    try:
+                        os.makedirs(folder_path_2_set)
+                        sleep(2)
+                    except:
+                        print('path creation failed, this usually means it was invalid, or perms are not correctly configured for that set path, make sure the folder path is valid and the script has the correct permissions and try again')
+                        sleep(2)
+                        continue
+                    else:
+                        print('path creation success, now writing to file...')
+                        sleep(2)
+                        f = open(root_folder_file, 'w')
+                        
