@@ -96,4 +96,8 @@ def root_folder_check():
                         print('path creation success, now writing to file...')
                         sleep(2)
                         f = open(root_folder_file, 'w')
-                        
+                        f.write(folder_path_2_set)
+                        f.close()
+                        print('done, path now set as: ' + folder_path_2_set)
+                        return folder_path_2_set
+

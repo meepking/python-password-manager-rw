@@ -53,7 +53,7 @@ if current_os == 'Windows':
     config_folder = folder_check()
 
     sleep(1)
-    #root_folder = root_folder_check()
+    root_folder = root_folder_check()
 
     
     sleep(2)
