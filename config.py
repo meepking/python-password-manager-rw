@@ -101,3 +101,50 @@ def root_folder_check():
                         print('done, path now set as: ' + folder_path_2_set)
                         return folder_path_2_set
 
+def enc_opt_check():
+    config_folder_path = 'C:/python password manager rw/config'
+    option_file = config_folder_path + '/enc.txt'
+
+    print('checking for encryption option file...')
+    sleep(1)
+    if os.path.exists(option_file):
+
+        print('file present, reading...')
+        f = open(option_file, 'r')
+        opt = f.read()
+        f.close()
+
+        if opt == 'True' or opt == True:
+            print('encryption feature enabled, passwords unreadable without this script')
+
+            return 'True'
+        elif opt == 'False' or opt == False:
+            print('WARNING: encryption feature disabled, all passwords are currently in plaintext and readable')
+
+            return 'False'
+    
+    else:
+        print('file containing the option to encrypt password files is not present')
+        sleep(2)
+        print('this program is equipped to be able to protect your passwords further by encrypting the files to ensure they are unreadable when simply opening the file')
+        sleep(2)
+        print('this feature is optional, but is strongly recomended for better protection of your passwords')
+        sleep(2)
+        en_opt = input('do you wish to enable password encryption?\n[y/n]:')
+
+        if en_opt == 'y':
+            print('alright, encryption will be enabled')
+            sleep(2)
+            f = open(option_file, 'w')
+            f.write('True')
+            f.close()
+
+            return 'True'
+        elif en_opt == 'n':
+            print('ok, it will be disabled, but don\'t say I didn\'t warn you')
+            sleep(2)
+            f = open(option_file, 'w')
+            f.write('False')
+            f.close()
+
+            return 'False'
