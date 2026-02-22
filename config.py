@@ -148,3 +148,35 @@ def enc_opt_check():
             f.close()
 
             return 'False'
+def pwp_check():
+    config_folder_path = 'C:/python password manager rw/config'
+    pwp_opt_file = config_folder_path + '/pwp_opt.txt'
+    sleep(2)
+    if os.path.exists(pwp_opt_file):
+        f = open(pwp_opt_file, 'r')
+        set_opt = f.read()
+        f.close()
+
+        if set_opt == 'True':
+
+            return True
+        elif set_opt == 'False':
+            return False
+    else:
+        print('password protection option file not present')
+        sleep(2)
+        print('the password protection is a safegaurd against those who want to take your passwords who also have access to your computer')
+        sleep(1)
+        print('this feature is strongly recomended since this will also make sure that the only way to read the encrypted files is protected(if that is also enabled)')
+        sleep(2)
+        pwp_opt = input('do you wish to enable password protection?\n[y/n]:')
+        sleep(1)
+        if pwp_opt == 'y':
+            print('alright, good, password protection will be enabled')
+            sleep(1)
+            print('oh, and just so you know, the password protection file with the password will be encrypted regardless of your preference')
+            sleep(2)
+
+            f = open(pwp_opt_file, 'w')
+            f.write('True')
+            f.close()
