@@ -180,3 +180,22 @@ def pwp_check():
             f = open(pwp_opt_file, 'w')
             f.write('True')
             f.close()
+            return True
+        elif pwp_opt == 'n':
+            print('fine, it will be disabled. do be warned that I am not responsible for your passwords being stolen')
+            sleep(2)
+
+            f = open(pwp_opt_file, 'w')
+            f.write('False')
+            f.close()
+            return False
+        
+def lock_check(pwp_opt):
+    config_folder_path = 'C:/python password manager rw/config'
+    lock_file = config_folder_path + 'lock.txt'
+
+    if pwp_opt == True:
+
+        if os.path.exists(lock_file):
+
+            

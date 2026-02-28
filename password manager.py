@@ -57,13 +57,13 @@ if current_os == 'Windows':
 
     
     sleep(2)
-    #ecrypt_opt = enc_opt_check()
+    ecrypt_opt = enc_opt_check()
     
     sleep(2)
-    #pswd_protection = pwp_check()
+    pswd_protection = pwp_check()
 
     sleep(2)
-    #locking_pswd = lock_check(opt)
+    #locking_pswd = lock_check(pswd_protection)
 
     sleep(2)
     #log_opt = log_opt_check()
