@@ -63,7 +63,7 @@ if current_os == 'Windows':
     pswd_protection = pwp_check()
 
     sleep(2)
-    #locking_pswd = lock_check(pswd_protection)
+    locking_pswd = lock_check(pswd_protection)
 
     sleep(2)
     #log_opt = log_opt_check()

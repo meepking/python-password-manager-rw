@@ -1,7 +1,7 @@
 from time import *
 from getpass import getpass
 import os
-
+from encryptor import *
 
 
 def folder_check():
@@ -198,4 +198,31 @@ def lock_check(pwp_opt):
 
         if os.path.exists(lock_file):
 
-            
+            pswd = decrypt_lock()
+            return pswd
+        else:
+            print('since you wanted to use password protection, you will need to create your password since you didn\'t make one yet')
+            sleep(2)
+            print('do keep in mind once again that this password will be encrypted regardless of your preference on whether you wanted it or not')
+            sleep(3)
+            while True:
+                password_2_set = input('this will also be the only time you can see the password you enter here\n[enter the password you wish to create and set]: ')
+                sleep(2)
+                final_opt = input('proceed with this password?\n[y/n]:')
+                sleep(1)
+                if final_opt == 'y':
+                    print('ok, now writing to file...')
+                    sleep(2)
+                    encrypt(lock_file, password_2_set)
+                    sleep(1)
+                    print('password creation complete, you will need to enter it again upon entering the main interface of this script')
+                    return password_2_set
+                elif final_opt == 'n':
+                    print('not ready yet? enter it again then')
+                    sleep(1)
+                    continue
+                else:
+                    print('hey, how about you pay attention to what is in the brackets, choose one of those answers')
+                    continue
+    elif pwp_opt == False:
+        print('password protection disabled, no need to check for file')
