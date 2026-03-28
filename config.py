@@ -226,3 +226,49 @@ def lock_check(pwp_opt):
                     continue
     elif pwp_opt == False:
         print('password protection disabled, no need to check for file')
+
+def log_opt_check():
+    config_folder_path = 'C:/python password manager rw/config'
+    log_opt_file = config_folder_path + '/log-opt.txt'
+
+    if os.path.exists(log_opt_file):
+        f = open(log_opt_file, 'r')
+        opt = f.read()
+        f.close()
+
+        if opt == 'True':
+            print('logging function has been set to true')
+
+            return True
+        elif opt == 'False':
+            print('logging function has been set to false')
+
+            return False
+        
+    else:
+        sleep(2)
+        print('I have also put in a feature that will put in the times this script has been accessed, and what was accessed as well')
+        sleep(2)
+        print('this will help add another layer of security by a bit by showing you if someone tried to use the script')
+        sleep(2)
+
+        final_opt = input('do you wish to enable logging?\n[y/n]:')
+
+        if final_opt == 'y':
+            sleep(1)
+            print('ok, logging set to true')
+            sleep(1)
+
+            f = open(log_opt_file, 'w')
+            f.write('True')
+            f.close()
+            return True
+        elif final_opt == 'n':
+            sleep(1)
+            print('ok, that is fine, this was a completely optional feature anyway')
+            sleep(1)
+
+            f = open(log_opt_file, 'w')
+            f.write('False')
+            f.close()
+            return False
