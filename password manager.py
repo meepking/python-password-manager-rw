@@ -7,7 +7,7 @@ from getpass import getpass
 from config import *
 from log import *
 try:
-    import cryptography
+    import cryptography # pyright: ignore[reportMissingImports]
 except ModuleNotFoundError:
     print('the cryptography library is currently not present and must be installed')
     sleep(2)
@@ -133,6 +133,7 @@ if current_os == 'Windows':
                     sleep(1)
                     username_to_add = input('[enter the username of the created user on that website]: ')
                     sleep(1)
+                    pswd_to_add = input('[now enter the password you wish to make]: ')
                     if os.path.exists(root_folder + '/' + website + '/' + username_to_add):
                         print('user already exists with that website in this system')
                         opt = input('overwrite current password?\n[y/n]: ')
