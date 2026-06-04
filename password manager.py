@@ -58,7 +58,7 @@ if current_os == 'Windows':
 
     
     sleep(2)
-    ecrypt_opt = enc_opt_check()
+    encrypt_opt = enc_opt_check()
     
     sleep(2)
     pswd_protection = pwp_check()
@@ -136,4 +136,30 @@ if current_os == 'Windows':
                     pswd_to_add = input('[now enter the password you wish to make]: ')
                     if os.path.exists(root_folder + '/' + website + '/' + username_to_add):
                         print('user already exists with that website in this system')
+                        sleep(1)
                         opt = input('overwrite current password?\n[y/n]: ')
+                        sleep(1)
+                        if opt == 'y':
+                            print('alright, overwriting password file...')
+                            sleep(2)
+                            if encrypt_opt == True:
+                                file_to_encrypt = root_folder + '/' + website + '/' + username_to_add + '/password.txt'
+                                encrypt(file_to_encrypt, pswd_to_add)
+                                print('password updated')
+                                sleep(1)
+                                continue
+                            else:
+                                f = open(root_folder + '/' + website + '/' + username_to_add + '/password.txt', 'w')
+                                f.write(pswd_to_add)
+                                f.close()
+                                print('password updated')
+                                sleep(1)
+                                continue
+                        elif opt == 'n':
+                            print('change your mind? alright then, overwrite and creation has been canceled')
+                            sleep(1)
+                            continue
+                elif create_mode == 2:
+                    print('so you need to make more than one? ok then, let\'s begin')
+
+                    
