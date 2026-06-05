@@ -159,7 +159,33 @@ if current_os == 'Windows':
                             print('change your mind? alright then, overwrite and creation has been canceled')
                             sleep(1)
                             continue
+                    else:
+                        if os.path.exists(root_folder + '/' + website):
+                            pass
+                        else:
+                            os.makedirs(root_folder + '/' + website)
+                        
+                        if encrypt_opt == True:
+                            file_to_encrypt = root_folder + '/' + username_to_add + '/password.txt'
+                            encrypt(file_to_encrypt, pswd_to_add)
+                            sleep(2)
+                            print('password file created and encrypted')
+                            
                 elif create_mode == 2:
                     print('so you need to make more than one? ok then, let\'s begin')
+                    sleep(1)
+                    fileset = []
+                    while True:
+                        website = input('[enter the website the username will be in, when done, leave this blank]:')
+                        sleep(0.5)
+                        if website == '':
+                            break
+                        else:
+                            pass
 
-                    
+                        username_to_add = input('[now enter the username to add for that website]:')
+                        sleep(1)
+                        folders_aligned = root_folder + '/' + website + '/' + username_to_add + '/password.txt'
+                        fileset.append(folders_aligned)
+                        print('username in list, continuing')
+                        continue
