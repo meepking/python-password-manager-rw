@@ -170,7 +170,12 @@ if current_os == 'Windows':
                             encrypt(file_to_encrypt, pswd_to_add)
                             sleep(2)
                             print('password file created and encrypted')
-                            
+                        else:
+                            f = open(root_folder + '/' + website + '/' + username_to_add + '/password.txt')
+                            f.write(pswd_to_add)
+                            f.close()
+                            sleep(1)
+                            print('password file created')
                 elif create_mode == 2:
                     print('so you need to make more than one? ok then, let\'s begin')
                     sleep(1)
@@ -189,3 +194,56 @@ if current_os == 'Windows':
                         fileset.append(folders_aligned)
                         print('username in list, continuing')
                         continue
+
+                    sleep(2)
+                    print('alright, ' + str(len(fileset)) + ' passwords coming right up!')
+                    sleep(1)
+                    print('please note that due to the complexity of this part, it will be displayed by folder path layout\n which will look like this: [rootfolder]/[website]/[username]/[password file]')
+                    sleep(2)
+                    print('alright, with that out of the way, let\'s begin')
+                    sleep(1)
+                    for x in fileset:
+                        pswd_to_add = input('[enter the password you want to set for' + x + ']:')
+                        sleep(1)
+                        if os.path.exists(x):
+                            print('user already exists, overwrite?')
+                            opt = input('[y/n]:')
+                            sleep(1)
+                            if opt == 'y':
+                                if encrypt_opt == True:
+                                    encrypt(x, pswd_to_add)
+                                    sleep(2)
+                                    print('password overwritten and encrypted')
+                                    continue
+                                else:
+                                    f = open(x, 'w')
+                                    f.write(pswd_to_add)
+                                    f.close()
+                                    sleep(1)
+                                    print('password overwritten')
+                                    sleep(1)
+                                    continue
+                            elif opt == 'n':
+                                print('password not overwritten and skipped')
+                                sleep(1)
+                                continue
+                        else:
+                            if encrypt_opt == True:
+                                encrypt(x, pswd_to_add)
+                                print('password file created and encrypted')
+                                sleep(1)
+                                continue
+                            else:
+                                f = open(x, 'w')
+                                f.write(pswd_to_add)
+                                f.close()
+                                print('password file created')
+                                sleep(1)
+                                continue
+                    
+                    sleep(2)
+                    print('alright, that seems to be done now')
+                    sleep(1)
+                    continue
+                elif create_mode == 3:
+                    print('so you\'re going to rely on this script to make a password?')
