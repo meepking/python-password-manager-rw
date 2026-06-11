@@ -6,6 +6,8 @@ import time
 from getpass import getpass
 from config import *
 from log import *
+from string import *
+import secrets
 try:
     import cryptography # pyright: ignore[reportMissingImports]
 except ModuleNotFoundError:
@@ -246,4 +248,37 @@ if current_os == 'Windows':
                     sleep(1)
                     continue
                 elif create_mode == 3:
-                    print('so you\'re going to rely on this script to make a password?')
+                    print('so you\'re going to rely on this script to make a password? ok then')
+                    sleep(1)
+                    print('do be warned that you are probably going to forget the password you have created here. but at least it\'s here, right?')
+                    sleep(2)
+                    print('alright, that is all I have to say about it, let\'s begin')
+                    sleep(1)
+
+                    website = input('[enter the website the username will be created]: ')
+
+                    sleep(1)
+
+                    username_to_add = input('[now enter the username that will be added to that website]')
+
+                    website_check = root_folder + '/' + website
+                    folders_aligned = root_folder + '/' + website + '/' + username_to_add + '/password.txt'
+
+                    if os.path.exists(website_check):
+                        pass
+                    else:
+                        os.makedirs(website_check)
+                    sleep(1)
+                    if os.path.exists(folders_aligned):
+                        print('username already exists within this website folder')
+                        sleep(2)
+                        opt = input('overwrite password?\n[y/n]: ')
+
+                        sleep(1)
+
+                        if opt == 'y':
+                            print('alright then')
+
+                            pswd_len = int(input('first, how long do you need your password?\n[enter answer as an integer]: '))
+
+                            charset = ascii_letters + punctuation + digits
