@@ -280,5 +280,64 @@ if current_os == 'Windows':
                             print('alright then')
 
                             pswd_len = int(input('first, how long do you need your password?\n[enter answer as an integer]: '))
-
+                            sleep(1)
                             charset = ascii_letters + punctuation + digits
+
+                            password = ''.join(secrets.choice(charset) for _ in range(pswd_len))
+
+                            sleep(1)
+
+                            print('password generation complete, your password for username: ' + username_to_add + ' is: ' + password + ' , now to put it on file')
+                            sleep(1)
+
+                            if encrypt_opt == True:
+                                encrypt(folders_aligned, password)
+                                sleep(1)
+
+                                print('generated password created to file and encrypted')
+                                sleep(1)
+                                continue
+                            else:
+                                f = open(folders_aligned, 'w')
+                                f.write(password)
+                                f.close()
+
+                                print('generated password added to file')
+                                sleep(1)
+                                continue
+                        elif opt == 'n':
+                            print('change your mind, alright then')
+                            sleep(1)
+                            continue
+                    else:
+                        pswd_len = int(input('now enter the character length you need of your password\n[must be an integer]: '))
+
+                        sleep(2)
+
+                        charset = ascii_letters + digits + punctuation
+
+                        password = ''.join(secrets.choice(charset) for _ in range(pswd_len))
+
+                        print('password generation complete, your password is: ' + password)
+                        sleep(1)
+                        print('now adding to file...')
+                        sleep(2)
+
+                        if encrypt_opt == True:
+                            encrypt(folders_aligned, password)
+                            sleep(1)
+                            print('password added and encrypted')
+                            sleep(1)
+                            continue
+                        else:
+                            f = open(folders_aligned, 'w')
+                            f.write(password)
+                            f.close()
+                            print('password added')
+                            sleep(1)
+                            continue
+                elif create_mode == 4:
+                    print('so you want to generate multiple passwords? ok then, let\'s begin')
+                    sleep(1)
+                    print('if you haven\'t used the other multi-add mode, then here is a reminder')
+                    sleep(2)
