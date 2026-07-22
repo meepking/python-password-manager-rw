@@ -2,7 +2,7 @@ from cryptography.fernet import Fernet # pyright: ignore[reportMissingImports]
 from time import sleep
 import os 
 def encrypt(file, password):
-    key_file = 'C:/python password manager/config/encrypt_key.key'
+    key_file = 'C:/python password manager rw/config/encrypt_key.key'
     
     if os.path.exists(key_file):
         f = open(key_file, 'r')
@@ -29,7 +29,7 @@ def encrypt(file, password):
     f.write(encrypted.decode())
     f.close()
 def decrypt(file):
-    key_file = 'C:/python password manager/config/encrypt_key.key'
+    key_file = 'C:/python password manager rw/config/encrypt_key.key'
     
     if os.path.exists(key_file):
         f = open(key_file, 'r')
@@ -58,7 +58,7 @@ def decrypt(file):
     sleep(1)
     print('file will remain encrypted')
 def decrypt_file(file):
-    key_file = 'C:/python password manager/config/encrypt_key.key'
+    key_file = 'C:/python password manager rw/config/encrypt_key.key'
     
     if os.path.exists(key_file):
         f = open(key_file, 'r')
@@ -87,7 +87,7 @@ def decrypt_file(file):
     f.write(decrypted.decode())
     f.close()
 def encrypt_file(file):
-    key_file = 'C:/python password manager/config/encrypt_key.key'
+    key_file = 'C:/python password manager rw/config/encrypt_key.key'
     
     if os.path.exists(key_file):
         f = open(key_file, 'r')
@@ -120,8 +120,8 @@ def encrypt_file(file):
     f.write(encrypted.decode())
     f.close()
 def decrypt_lock():
-    pswd_file = 'C:/python password manager/config/lock file.txt'
-    key_file = 'C:/python password manager/config/encrypt_key.key'
+    pswd_file = 'C:/python password manager rw/config/lock.txt'
+    key_file = 'C:/python password manager rw/config/encrypt_key.key'
     
     if os.path.exists(key_file):
         f = open(key_file, 'r')
@@ -148,7 +148,7 @@ def decrypt_lock():
     sleep(2)
     return decrypted.decode()
 def m_decrypt(file):
-    key_file = 'C:/python password manager/config/encrypt_key.key'
+    key_file = 'C:/python password manager rw/config/encrypt_key.key'
     
     if os.path.exists(key_file):
         f = open(key_file, 'r')

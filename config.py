@@ -18,19 +18,19 @@ def folder_check():
             print('failed, using current directory...')
             sleep(1)
             try:
-                os.mkdir(os.getcwd + '\config')
+                os.mkdir(os.getcwd + '/config')
             except:
                 print('huh, guess that failed too, perhaps there is a folder permission restriction. resolve that and try starting the script again')
             else:
-                print('success, using' + os.getcwd() + '\config' + ' as configuration folder')
-                return os.getcwd() + '\config'
+                print('success, using' + os.getcwd() + '/config' + ' as configuration folder')
+                return os.getcwd() + '/config'
         else:
             print('success, config folder added, continuing')
             return config_folder_path
 
 def root_folder_check():
     config_folder_path = 'C:/python password manager rw/config'
-    root_folder_file = config_folder_path + '/config/root_folder.txt'
+    root_folder_file = config_folder_path + '/root_folder.txt'
 
     if os.path.exists(root_folder_file):
         f = open(root_folder_file, 'r')
@@ -38,7 +38,7 @@ def root_folder_check():
         f.close()
 
         if os.path.exists(root_path):
-            print('using path: ' + root_path + ' as the paasword root folder')
+            print('using path: ' + root_path + ' as the password root folder')
             return root_path
         else:
             print('for some reason, the root folder is not there, therefore will be added')
@@ -64,7 +64,14 @@ def root_folder_check():
         if opt_1 == 'd' or opt_1 == 'D':
             print('alright, using default, which is: C:/passwords')
             sleep(2)
-            os.mkdir('C:/passwords')
+            if os.path.exists('C:/passwords'):
+                print('folder already exists, no need to add')
+                sleep(1)
+            else:
+                os.mkdir('C:/passwords')
+            f = open(root_folder_file, 'w')
+            f.write('C:/passwords')
+            f.close()
             return 'C:/passwords'
         elif opt_1 == 'c' or opt_1 == 'C':
             print('so you want a custom path? make sure that it doesn\'t have any symbols that would not be allowed in folder creation')
@@ -72,6 +79,10 @@ def root_folder_check():
             while True:
                 folder_path_2_set = input('[enter the path you want to set as root folder(must be full path)]:')
                 sleep(1)
+                if folder_path_2_set.endswith('/'):
+                    print('you should also make sure you don\'t add a slash at the end of the path as it won\'t work right with the rest o the script, please try again')
+                    sleep(1)
+                    continue
                 if os.path.exists(folder_path_2_set):
                     print('folder already present, no need to add')
                     sleep(1)
@@ -192,7 +203,7 @@ def pwp_check():
         
 def lock_check(pwp_opt):
     config_folder_path = 'C:/python password manager rw/config'
-    lock_file = config_folder_path + 'lock.txt'
+    lock_file = config_folder_path + '/lock.txt'
 
     if pwp_opt == True:
 
@@ -213,7 +224,7 @@ def lock_check(pwp_opt):
                 if final_opt == 'y':
                     print('ok, now writing to file...')
                     sleep(2)
-                    encrypt(lock_file, password_2_set)
+                    encrypt(lock_file, password_2_set.encode())
                     sleep(1)
                     print('password creation complete, you will need to enter it again upon entering the main interface of this script')
                     return password_2_set

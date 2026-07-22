@@ -2,7 +2,7 @@ import datetime
 import os
 
 def granted():
-    file = 'C:/python password manager/config/access.txt'
+    file = 'C:/python password manager rw/config/access.txt'
     
     if not os.path.exists(file):
         start = True
@@ -22,7 +22,7 @@ def granted():
     f.write('-------------------------------\n')
     f.close()
 def denied():
-    file = 'C:/python password manager/config/access.txt'
+    file =  'C:/python password manager rw/config/access.txt'
     
     if not os.path.exists(file):
         start = True
@@ -42,7 +42,7 @@ def denied():
     f.write('-------------------------------\n')
     f.close()
 def add_pswd(username):
-    file = 'C:/python password manager/config/access.txt'
+    file =  'C:/python password manager rw/config/access.txt'
     
     if not os.path.exists(file):
         start = True
@@ -62,7 +62,7 @@ def add_pswd(username):
     f.write('----------------------------------------\n')
     f.close()
 def rm_pswd(username):
-    file = 'C:/python password manager/config/access.txt'
+    file =  'C:/python password manager rw/config/access.txt'
     
     if not os.path.exists(file):
         start = True
@@ -82,7 +82,7 @@ def rm_pswd(username):
     f.write('----------------------------------------\n')
     f.close()
 def config_change(change):
-    file = 'C:/python password manager/config/access.txt'
+    file = 'C:/python password manager rw/config/access.txt'
     
     if not os.path.exists(file):
         start = True
@@ -103,7 +103,7 @@ def config_change(change):
     f.write('----------------------------------------\n')
     f.close()
 def viewed(username):
-    file = 'C:/python password manager/config/access.txt'
+    file = 'C:/python password manager rw/config/access.txt'
     
     if not os.path.exists(file):
         start = True
@@ -123,7 +123,7 @@ def viewed(username):
     f.write('-------------------------------\n')
     f.close()
 def lockout_log():
-    file = 'C:/python password manager/config/access.txt'
+    file = 'C:/python password manager rw/config/access.txt'
 
     if not os.path.exists(file):
         start = True
