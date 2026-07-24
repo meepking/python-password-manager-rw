@@ -118,7 +118,7 @@ if current_os == 'Windows':
     while True:
         print('choose an option:')
         try:
-            menu_opt = int(input('1: create a password\n2: view a password\n3: modify a password\n4: view access log\n5: modify configuration\n6: view manager info\n7: exit program'))
+            menu_opt = int(input('1: create a password\n2: view a password\n3: modify a password\n4: view access log\n5: modify configuration\n6: view manager info\n7: exit program\n[choose an option]: '))
             sleep(1)
         except TypeError:
             print('must be an integer, or a number from the menu selection, try again')
@@ -390,8 +390,71 @@ if current_os == 'Windows':
                                 if encrypt_opt == True:
                                     encrypt(e[0], password)
                                     print('overwrite complete')
+                                    continue
                                 else:
                                     f = open(e[0], 'w')
                                     f.write(password)
                                     f.close()
                                     print('overwrite complete')
+                                    continue
+                            elif ov_opt == 'n':
+                                print('overwrite canceled and skipping to next one')
+                                sleep(1)
+                                continue
+                        else:
+                            if encrypt_opt == True:
+                                encrypt(e[0], password)
+                                print('password created and encrypted, continuing...')
+                                sleep(1)
+                                continue
+                            else:
+                                f = open(e[0], 'w')
+                                f.write(password)
+                                f.close()
+                                print('password created, continuing')
+                                continue
+                    sleep(1)
+                    print('password generation complete')
+                    sleep(1)
+                    print('returning to menu...')
+                    sleep(1)
+                    continue
+            elif menu_opt == 2:
+                print('so you want to view a password? alright')
+                sleep(1)
+                if pswd_protection == True:
+                    attempts = 3
+                    print('but first, you must enter your password to view a password')
+                    sleep(1)
+                    while True:
+                        pswd_input = getpass('[enter your password]: ')
+                        sleep(1)
+
+                        if pswd_input == locking_pswd:
+                            print('access granted')
+                            sleep(1)
+                            if log_opt == True:
+                                granted()
+                            else:
+                                pass
+                            break
+                        else:
+                            attempts = attempts - 1
+                            if attempts <= 0:
+                                print('no attempts remaining, locking access to script...')
+                                current_time = time.mktime(localtime())
+                                
+                                lockout_time = current_time + 86400.0
+                                f = open('lockout.txt', 'w')
+                                f.write(lockout_time)
+                                f.close()
+                                sleep(1)
+                                print('you have now been blocked from accessing this script. you will be able to access the script again after:' + lockout_time.strftime('%x') + ', ' + lockout_time.strftime('%X'))
+                                sleep(2)
+                                if log_opt == True:
+                                     lockout_log()
+                                else:
+                                    pass
+                                exit()
+                            else:
+                                print('access denied, you have ' + str(attempts) + ' remaining, try again')

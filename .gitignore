@@ -1,0 +1,12 @@
+config/encrypt_key.key
+__pycache__/config.cpython-314.pyc
+__pycache__/encryptor.cpython-314.pyc
+__pycache__/log.cpython-314.pyc
+config/access.txt
+config/enc.txt
+config/lock.txt
+config/log-opt.txt
+config/pwp_opt.txt
+config/root_folder.txt
+test scripts/nested list call.py
+test scripts/test generator.py
