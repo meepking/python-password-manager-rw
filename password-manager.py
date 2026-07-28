@@ -122,303 +122,311 @@ if current_os == 'Windows':
             sleep(1)
         except TypeError:
             print('must be an integer, or a number from the menu selection, try again')
-        except ValueError:
-            print('that option is invalid, try again')
         else:
             if menu_opt == 1:
                 print('so you are adding a password?')
                 sleep(1)
-                create_mode = input('so how many do you want to add?\nyour options are:\n1: only 1 password\n2: multiple passwords\n3: generate a password\n4: generate multiple passwords\n[choose your option]:')
-                
-                if create_mode == 1:
-                    print('just one? ok then')
-                    sleep(2)
-                    website = input('[enter the website the username was created on]: ')
+                try:
+                    create_mode = int(input('so how many do you want to add?\nyour options are:\n1: only 1 password\n2: multiple passwords\n3: generate a password\n4: generate multiple passwords\n[choose your option]:'))
+                except TypeError:
+                    print('input must be a number, try again')
                     sleep(1)
-                    username_to_add = input('[enter the username of the created user on that website]: ')
-                    sleep(1)
-                    pswd_to_add = input('[now enter the password you wish to make]: ')
-                    if os.path.exists(root_folder + '/' + website + '/' + username_to_add):
-                        print('user already exists with that website in this system')
+                    continue
+                except:
+                    print('whatever you put in will not work as a valid input, input must be a number, try again')
+                else:
+                    if create_mode == 1:
+                        print('just one? ok then')
+                        sleep(2)
+                        website = input('[enter the website the username was created on]: ')
                         sleep(1)
-                        opt = input('overwrite current password?\n[y/n]: ')
+                        username_to_add = input('[enter the username of the created user on that website]: ')
                         sleep(1)
-                        if opt == 'y':
-                            print('alright, overwriting password file...')
-                            sleep(2)
-                            if encrypt_opt == True:
-                                file_to_encrypt = root_folder + '/' + website + '/' + username_to_add + '/password.txt'
-                                encrypt(file_to_encrypt, pswd_to_add)
-                                print('password updated')
-                                sleep(1)
-                                continue
-                            else:
-                                f = open(root_folder + '/' + website + '/' + username_to_add + '/password.txt', 'w')
-                                f.write(pswd_to_add)
-                                f.close()
-                                print('password updated')
-                                sleep(1)
-                                continue
-                        elif opt == 'n':
-                            print('change your mind? alright then, overwrite and creation has been canceled')
+                        pswd_to_add = input('[now enter the password you wish to make]: ')
+                        if os.path.exists(root_folder + '/' + website + '/' + username_to_add):
+                            print('user already exists with that website in this system')
                             sleep(1)
-                            continue
-                    else:
-                        if os.path.exists(root_folder + '/' + website):
-                            pass
-                        else:
-                            os.makedirs(root_folder + '/' + website)
-                        
-                        if encrypt_opt == True:
-                            file_to_encrypt = root_folder + '/' + username_to_add + '/password.txt'
-                            encrypt(file_to_encrypt, pswd_to_add)
-                            sleep(2)
-                            print('password file created and encrypted')
-                        else:
-                            f = open(root_folder + '/' + website + '/' + username_to_add + '/password.txt')
-                            f.write(pswd_to_add)
-                            f.close()
-                            sleep(1)
-                            print('password file created')
-                elif create_mode == 2:
-                    print('so you need to make more than one? ok then, let\'s begin')
-                    sleep(1)
-                    fileset = []
-                    while True:
-                        website = input('[enter the website the username will be in, when done, leave this blank]:')
-                        sleep(0.5)
-                        if website == '':
-                            break
-                        else:
-                            pass
-
-                        username_to_add = input('[now enter the username to add for that website]:')
-                        sleep(1)
-                        folders_aligned = root_folder + '/' + website + '/' + username_to_add + '/password.txt'
-                        fileset.append(folders_aligned)
-                        print('username in list, continuing')
-                        continue
-
-                    sleep(2)
-                    print('alright, ' + str(len(fileset)) + ' passwords coming right up!')
-                    sleep(1)
-                    print('please note that due to the complexity of this part, it will be displayed by folder path layout\n which will look like this: [rootfolder]/[website]/[username]/[password file]')
-                    sleep(2)
-                    print('alright, with that out of the way, let\'s begin')
-                    sleep(1)
-                    for x in fileset:
-                        pswd_to_add = input('[enter the password you want to set for' + x + ']:')
-                        sleep(1)
-                        if os.path.exists(x):
-                            print('user already exists, overwrite?')
-                            opt = input('[y/n]:')
+                            opt = input('overwrite current password?\n[y/n]: ')
                             sleep(1)
                             if opt == 'y':
+                                print('alright, overwriting password file...')
+                                sleep(2)
+                                if encrypt_opt == True:
+                                    file_to_encrypt = root_folder + '/' + website + '/' + username_to_add + '/password.txt'
+                                    encrypt(file_to_encrypt, pswd_to_add)
+                                    print('password updated')
+                                    sleep(1)
+                                    continue
+                                else:
+                                    f = open(root_folder + '/' + website + '/' + username_to_add + '/password.txt', 'w')
+                                    f.write(pswd_to_add)
+                                    f.close()
+                                    print('password updated')
+                                    sleep(1)
+                                    continue
+                            elif opt == 'n':
+                                print('change your mind? alright then, overwrite and creation has been canceled')
+                                sleep(1)
+                                continue
+                        else:
+                            if os.path.exists(root_folder + '/' + website):
+                                pass
+                            else:
+                                os.makedirs(root_folder + '/' + website)
+                            
+                            if encrypt_opt == True:
+                                file_to_encrypt = root_folder + '/' + username_to_add + '/password.txt'
+                                encrypt(file_to_encrypt, pswd_to_add)
+                                sleep(2)
+                                print('password file created and encrypted')
+                            else:
+                                f = open(root_folder + '/' + website + '/' + username_to_add + '/password.txt')
+                                f.write(pswd_to_add)
+                                f.close()
+                                sleep(1)
+                                print('password file created')
+                    elif create_mode == 2:
+                        print('so you need to make more than one? ok then, let\'s begin')
+                        sleep(1)
+                        fileset = []
+                        while True:
+                            website = input('[enter the website the username will be in, when done, leave this blank]:')
+                            sleep(0.5)
+                            if website == '':
+                                break
+                            else:
+                                pass
+
+                            username_to_add = input('[now enter the username to add for that website]:')
+                            sleep(1)
+                            folders_aligned = root_folder + '/' + website + '/' + username_to_add + '/password.txt'
+                            fileset.append(folders_aligned)
+                            print('username in list, continuing')
+                            continue
+
+                        sleep(2)
+                        print('alright, ' + str(len(fileset)) + ' passwords coming right up!')
+                        sleep(1)
+                        print('please note that due to the complexity of this part, it will be displayed by folder path layout\n which will look like this: [rootfolder]/[website]/[username]/[password file]')
+                        sleep(2)
+                        print('alright, with that out of the way, let\'s begin')
+                        sleep(1)
+                        for x in fileset:
+                            pswd_to_add = input('[enter the password you want to set for' + x + ']:')
+                            sleep(1)
+                            if os.path.exists(x):
+                                print('user already exists, overwrite?')
+                                opt = input('[y/n]:')
+                                sleep(1)
+                                if opt == 'y':
+                                    if encrypt_opt == True:
+                                        encrypt(x, pswd_to_add)
+                                        sleep(2)
+                                        print('password overwritten and encrypted')
+                                        continue
+                                    else:
+                                        f = open(x, 'w')
+                                        f.write(pswd_to_add)
+                                        f.close()
+                                        sleep(1)
+                                        print('password overwritten')
+                                        sleep(1)
+                                        continue
+                                elif opt == 'n':
+                                    print('password not overwritten and skipped')
+                                    sleep(1)
+                                    continue
+                            else:
                                 if encrypt_opt == True:
                                     encrypt(x, pswd_to_add)
-                                    sleep(2)
-                                    print('password overwritten and encrypted')
+                                    print('password file created and encrypted')
+                                    sleep(1)
                                     continue
                                 else:
                                     f = open(x, 'w')
                                     f.write(pswd_to_add)
                                     f.close()
-                                    sleep(1)
-                                    print('password overwritten')
+                                    print('password file created')
                                     sleep(1)
                                     continue
-                            elif opt == 'n':
-                                print('password not overwritten and skipped')
-                                sleep(1)
-                                continue
-                        else:
-                            if encrypt_opt == True:
-                                encrypt(x, pswd_to_add)
-                                print('password file created and encrypted')
-                                sleep(1)
-                                continue
-                            else:
-                                f = open(x, 'w')
-                                f.write(pswd_to_add)
-                                f.close()
-                                print('password file created')
-                                sleep(1)
-                                continue
-                    
-                    sleep(2)
-                    print('alright, that seems to be done now')
-                    sleep(1)
-                    continue
-                elif create_mode == 3:
-                    print('so you\'re going to rely on this script to make a password? ok then')
-                    sleep(1)
-                    print('do be warned that you are probably going to forget the password you have created here. but at least it\'s here, right?')
-                    sleep(2)
-                    print('alright, that is all I have to say about it, let\'s begin')
-                    sleep(1)
-
-                    website = input('[enter the website the username will be created]: ')
-
-                    sleep(1)
-
-                    username_to_add = input('[now enter the username that will be added to that website]')
-
-                    website_check = root_folder + '/' + website
-                    folders_aligned = root_folder + '/' + website + '/' + username_to_add + '/password.txt'
-
-                    if os.path.exists(website_check):
-                        pass
-                    else:
-                        os.makedirs(website_check)
-                    sleep(1)
-                    if os.path.exists(folders_aligned):
-                        print('username already exists within this website folder')
+                        
                         sleep(2)
-                        opt = input('overwrite password?\n[y/n]: ')
+                        print('alright, that seems to be done now')
+                        sleep(1)
+                        continue
+                    elif create_mode == 3:
+                        print('so you\'re going to rely on this script to make a password? ok then')
+                        sleep(1)
+                        print('do be warned that you are probably going to forget the password you have created here. but at least it\'s here, right?')
+                        sleep(2)
+                        print('alright, that is all I have to say about it, let\'s begin')
+                        sleep(1)
+
+                        website = input('[enter the website the username will be created]: ')
 
                         sleep(1)
 
-                        if opt == 'y':
-                            print('alright then')
+                        username_to_add = input('[now enter the username that will be added to that website]')
 
-                            pswd_len = int(input('first, how long do you need your password?\n[enter answer as an integer]: '))
+                        website_check = root_folder + '/' + website
+                        folders_aligned = root_folder + '/' + website + '/' + username_to_add + '/password.txt'
+
+                        if os.path.exists(website_check):
+                            pass
+                        else:
+                            os.makedirs(website_check)
+                        sleep(1)
+                        if os.path.exists(folders_aligned):
+                            print('username already exists within this website folder')
+                            sleep(2)
+                            opt = input('overwrite password?\n[y/n]: ')
+
                             sleep(1)
-                            charset = ascii_letters + punctuation + digits
+
+                            if opt == 'y':
+                                print('alright then')
+
+                                pswd_len = int(input('first, how long do you need your password?\n[enter answer as an integer]: '))
+                                sleep(1)
+                                charset = ascii_letters + punctuation + digits
+
+                                password = ''.join(secrets.choice(charset) for _ in range(pswd_len))
+
+                                sleep(1)
+
+                                print('password generation complete, your password for username: ' + username_to_add + ' is: ' + password + ' , now to put it on file')
+                                sleep(1)
+
+                                if encrypt_opt == True:
+                                    encrypt(folders_aligned, password)
+                                    sleep(1)
+
+                                    print('generated password created to file and encrypted')
+                                    sleep(1)
+                                    continue
+                                else:
+                                    f = open(folders_aligned, 'w')
+                                    f.write(password)
+                                    f.close()
+
+                                    print('generated password added to file')
+                                    sleep(1)
+                                    continue
+                            elif opt == 'n':
+                                print('change your mind, alright then')
+                                sleep(1)
+                                continue
+                        else:
+                            pswd_len = int(input('now enter the character length you need of your password\n[must be an integer]: '))
+
+                            sleep(2)
+
+                            charset = ascii_letters + digits + punctuation
 
                             password = ''.join(secrets.choice(charset) for _ in range(pswd_len))
 
+                            print('password generation complete, your password is: ' + password)
                             sleep(1)
-
-                            print('password generation complete, your password for username: ' + username_to_add + ' is: ' + password + ' , now to put it on file')
-                            sleep(1)
+                            print('now adding to file...')
+                            sleep(2)
 
                             if encrypt_opt == True:
                                 encrypt(folders_aligned, password)
                                 sleep(1)
-
-                                print('generated password created to file and encrypted')
+                                print('password added and encrypted')
                                 sleep(1)
                                 continue
                             else:
                                 f = open(folders_aligned, 'w')
                                 f.write(password)
                                 f.close()
-
-                                print('generated password added to file')
+                                print('password added')
                                 sleep(1)
                                 continue
-                        elif opt == 'n':
-                            print('change your mind, alright then')
-                            sleep(1)
-                            continue
-                    else:
-                        pswd_len = int(input('now enter the character length you need of your password\n[must be an integer]: '))
-
+                    elif create_mode == 4:
+                        print('so you want to generate multiple passwords? ok then, let\'s begin')
+                        sleep(1)
+                        print('if you haven\'t used the other multi-add mode, then here is a reminder')
                         sleep(2)
-
-                        charset = ascii_letters + digits + punctuation
-
-                        password = ''.join(secrets.choice(charset) for _ in range(pswd_len))
-
-                        print('password generation complete, your password is: ' + password)
-                        sleep(1)
-                        print('now adding to file...')
+                        print('as stated before, the "multi-add" system in place is quie complex and will be displayed in the following format: [rootfolder]/[website]/[username]/[password file]')
                         sleep(2)
+                        print('and with that out of the way, let\'s begin')
+                        sleep(1)
 
-                        if encrypt_opt == True:
-                            encrypt(folders_aligned, password)
+                        fileset = []
+                        while True:
+                            website = input('[enter the website the username will be added in(when done, leave this blank)]: ')
+                            if website == '':
+                                break
+                            else:
+                                pass
                             sleep(1)
-                            print('password added and encrypted')
+                            username_to_add = input('[now add the username for that site]: ')
+
+                            folders_aligned = root_folder + '/' + website + '/' + username_to_add + '/password.txt'
+
+                            data_block = [folders_aligned, website, username_to_add]
                             sleep(1)
+                            fileset.append(data_block)
+
+                            print('password generation queued, continuing')
+                            sleep(0.5)
                             continue
-                        else:
-                            f = open(folders_aligned, 'w')
-                            f.write(password)
-                            f.close()
-                            print('password added')
-                            sleep(1)
-                            continue
-                elif create_mode == 4:
-                    print('so you want to generate multiple passwords? ok then, let\'s begin')
-                    sleep(1)
-                    print('if you haven\'t used the other multi-add mode, then here is a reminder')
-                    sleep(2)
-                    print('as stated before, the "multi-add" system in place is quie complex and will be displayed in the following format: [rootfolder]/[website]/[username]/[password file]')
-                    sleep(2)
-                    print('and with that out of the way, let\'s begin')
-                    sleep(1)
-
-                    fileset = []
-                    while True:
-                        website = input('[enter the website the username will be added in(when done, leave this blank)]: ')
-                        if website == '':
-                            break
-                        else:
-                            pass
                         sleep(1)
-                        username_to_add = input('[now add the username for that site]: ')
-
-                        folders_aligned = root_folder + '/' + website + '/' + username_to_add + '/password.txt'
-
-                        data_block = [folders_aligned, website, username_to_add]
+                        print('all done? alright, ' + str(len(fileset)) + 'passwords to generate, coming right up')
                         sleep(1)
-                        fileset.append(data_block)
 
-                        print('password generation queued, continuing')
-                        sleep(0.5)
-                        continue
-                    sleep(1)
-                    print('all done? alright, ' + str(len(fileset)) + 'passwords to generate, coming right up')
-                    sleep(1)
+                        for e in fileset:
+                            pswd_len = int(input('[enter the character length you wish the password for ' + e[2] + ' in website: ' + e[1] + ' to have]: '))
 
-                    for e in fileset:
-                        pswd_len = int(input('[enter the character length you wish the password for ' + e[2] + ' in website: ' + e[1] + ' to have]: '))
-
-                        charset = ascii_letters + digits + punctuation
-                        
-                        password = ''.join(secrets.choice(charset) for _ in range(pswd_len))
-                        sleep(1)
-                        print('password is: ' + password)
-                        if os.path.exists(e[0]):
-                            print('though it would seem it already exists')
+                            charset = ascii_letters + digits + punctuation
+                            
+                            password = ''.join(secrets.choice(charset) for _ in range(pswd_len))
                             sleep(1)
-                            ov_opt = input(' do you wish to overwrite the existing password\n[y/n]:')
-                            sleep(1)
-                            if ov_opt == 'y':
-                                print('overwriting...')
+                            print('password is: ' + password)
+                            if os.path.exists(e[0]):
+                                print('though it would seem it already exists')
                                 sleep(1)
+                                ov_opt = input(' do you wish to overwrite the existing password\n[y/n]:')
+                                sleep(1)
+                                if ov_opt == 'y':
+                                    print('overwriting...')
+                                    sleep(1)
+                                    if encrypt_opt == True:
+                                        encrypt(e[0], password)
+                                        print('overwrite complete')
+                                        continue
+                                    else:
+                                        f = open(e[0], 'w')
+                                        f.write(password)
+                                        f.close()
+                                        print('overwrite complete')
+                                        continue
+                                elif ov_opt == 'n':
+                                    print('overwrite canceled and skipping to next one')
+                                    sleep(1)
+                                    continue
+                            else:
                                 if encrypt_opt == True:
                                     encrypt(e[0], password)
-                                    print('overwrite complete')
+                                    print('password created and encrypted, continuing...')
+                                    sleep(1)
                                     continue
                                 else:
                                     f = open(e[0], 'w')
                                     f.write(password)
                                     f.close()
-                                    print('overwrite complete')
+                                    print('password created, continuing')
                                     continue
-                            elif ov_opt == 'n':
-                                print('overwrite canceled and skipping to next one')
-                                sleep(1)
-                                continue
-                        else:
-                            if encrypt_opt == True:
-                                encrypt(e[0], password)
-                                print('password created and encrypted, continuing...')
-                                sleep(1)
-                                continue
-                            else:
-                                f = open(e[0], 'w')
-                                f.write(password)
-                                f.close()
-                                print('password created, continuing')
-                                continue
-                    sleep(1)
-                    print('password generation complete')
-                    sleep(1)
-                    print('returning to menu...')
-                    sleep(1)
-                    continue
+                        sleep(1)
+                        print('password generation complete')
+                        sleep(1)
+                        print('returning to menu...')
+                        sleep(1)
+                        continue
+                    else:
+                        print('that is not a valid option, try again')
+                        sleep(1)
             elif menu_opt == 2:
                 print('so you want to view a password? alright')
                 sleep(1)
@@ -458,3 +466,70 @@ if current_os == 'Windows':
                                 exit()
                             else:
                                 print('access denied, you have ' + str(attempts) + ' remaining, try again')
+                                sleep(1)
+                                if log_opt == True:
+                                    denied()
+                                else:
+                                    pass
+                                continue
+                else:
+                    pass
+                print('so what do you want to do?\noptions are:\n1: view a single password\n2: view multiple passwords\n3 view all passwords')
+                sleep(0.5)
+                try:
+                    view_mode_opt = int(input('[enter your option]: '))
+                except TypeError:
+                    print('input must be a number, try again')
+                    sleep(1)
+                    continue
+                else:
+                    sleep(1)
+                    if view_mode_opt == 1:
+                        print('just one password? ok then')
+                        sleep(2)
+                        while True:
+                            website = input('[enter the website of the user(or enter cancel to go back)]: ')
+                            sleep(1)
+                            if website == 'cancel':
+                                print('don\'t want to view a password? fine then')
+                                sleep(1)
+                                break
+                            if os.path.exists(root_folder + '/' + website):
+                                break
+                            else:
+                                print('website folder does not exist, try again')
+                                sleep(1)
+                                continue
+                        if website == 'cancel':
+                            continue
+                        else:
+                            pass
+                        sleep(1)
+                        while True:
+                            username = input('[now enter the username of that website you wish to the password of(or enter cancel to go back)]: ')
+                            sleep(1)
+                            if username == 'cancel':
+                                print('changed your mind? fine then')
+                                break
+                            if os.path.exists(root_folder + '/' + website + '/' + username):
+                                print('ok, so the username is there, but what about the password file?')
+                                sleep(2)
+                                if os.path.exists(root_folder + '/' + website + '/' + username + '/password.txt'):
+                                    print('and the file is there too, good')
+                                    sleep(1)
+                                    break
+                                else:
+                                    print('it would appear that the file is not there, must have been deleted by you or someone else')
+                                    sleep(1)
+                                    opt = input('would you like to remove that user?\n[y/n]: ')
+                                    sleep(1)
+                                    if opt == 'y':
+                                        print('alright, removing username...')
+                                        sleep(1)
+                                        try:
+                                            os.rmdir(root_folder + '/' + website + '/' + username)
+                                        except:
+                                            print('for some reason, the folder cannot be removed, you may need to manually remove the folder')
+                                        else:
+                                            print('ok, that worked, moving on then')
+                                        
