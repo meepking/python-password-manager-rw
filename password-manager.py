@@ -530,6 +530,42 @@ if current_os == 'Windows':
                                             os.rmdir(root_folder + '/' + website + '/' + username)
                                         except:
                                             print('for some reason, the folder cannot be removed, you may need to manually remove the folder')
+                                            sleep(1)
                                         else:
                                             print('ok, that worked, moving on then')
-                                        
+                                            sleep(1)
+                                        print('now, let\'s try that again')
+                                        sleep(2)
+                                        continue
+                            else:
+                                print('that username does not exist here, try again')
+                                continue
+                        sleep(1)
+                        if username == 'cancel':
+                            continue
+                        print('alright, with all that out of the way,let\'s see that password')
+                        sleep(3)
+
+                        if encrypt_opt == True:
+                            decrypt(root_folder + '/' + website + '/' + username + '/password.txt')
+                            sleep(1)
+                            continue
+                        else:
+                            f = open(root_folder + '/' + website + '/' + username + '/password.txt', 'r')
+                            password = f.read()
+                            f.close()
+                            print('your password is: ' + password)
+                            sleep(1)
+                            continue
+                    elif view_mode_opt == 2:
+                        print('so you want to view multiple passwords? alright then')
+                        sleep(2)
+                        pswds_2_read = []
+                        while True:
+                            website = input('[enter the website of the username(leave blank to end selection)]: ')
+                            sleep(1)
+                            if website == '':
+                                break
+                            else:
+                                pass
+                            username = input('[now enter the username of that website to view the password of]: ')
