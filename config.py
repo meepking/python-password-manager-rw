@@ -283,3 +283,19 @@ def log_opt_check():
             f.write('False')
             f.close()
             return False
+def silent_log_opt_check():
+    config_folder_path = 'C:/python password manager rw/config'
+    log_opt_file = config_folder_path + '/log-opt.txt'
+
+    if os.path.exists(log_opt_file):
+        f = open(log_opt_file, 'r')
+        log_opt = f.read()
+        f.close()
+
+        if log_opt == 'True' or log_opt == True:
+            return True
+        else:
+            return False
+    else:
+        return False
+    

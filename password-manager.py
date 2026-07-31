@@ -8,8 +8,9 @@ from config import *
 from log import *
 from string import *
 import secrets
+from auth import authenticate as auth
 try:
-    import cryptography # pyright: ignore[reportMissingImports]
+    import cryptography
 except ModuleNotFoundError:
     print('the cryptography library is currently not present and must be installed')
     sleep(2)
@@ -72,44 +73,7 @@ if current_os == 'Windows':
     log_opt = log_opt_check()
 
     if pswd_protection == True:
-        attempts = 3
-        while True:
-            pswd_input = getpass('[please enter your password]:')
-            sleep(1)
-            if pswd_input == locking_pswd:
-                print('access granted')
-                sleep(1)
-                if log_opt == True:
-                    granted()
-                else:
-                    pass
-                break
-            else:
-                attempts = attempts - 1
-                
-                if attempts <= 0:
-                    current_time = time.mktime(localtime())
-
-                    lockout_time = current_time + 86400.0
-                    f = open('lockout.txt', 'w')
-                    f.write(lockout_time)
-                    f.close()
-                    sleep(1)
-                    print('you have now been blocked from accessing this script. you will be able to access the script again after:' + lockout_time.strftime('%x') + ', ' + lockout_time.strftime('%X'))
-                    sleep(2)
-                    if log_opt == True:
-                        lockout_log()
-                    else:
-                        pass
-                    exit()
-                else:
-                
-                    print('access denied, you have: ' + str(attempts) + ' left before lockout\nplease try again')
-                    if log_opt == True:
-                        denied()
-                    else:
-                        pass
-                    continue
+       auth(locking_pswd)
     else:
         pass
 
@@ -173,7 +137,7 @@ if current_os == 'Windows':
                                 pass
                             else:
                                 os.makedirs(root_folder + '/' + website)
-                            
+                            os.mkdir(root_folder + '/' + website + '/' + username_to_add)
                             if encrypt_opt == True:
                                 file_to_encrypt = root_folder + '/' + username_to_add + '/password.txt'
                                 encrypt(file_to_encrypt, pswd_to_add)
@@ -200,27 +164,24 @@ if current_os == 'Windows':
                             username_to_add = input('[now enter the username to add for that website]:')
                             sleep(1)
                             folders_aligned = root_folder + '/' + website + '/' + username_to_add + '/password.txt'
-                            fileset.append(folders_aligned)
-                            print('username in list, continuing')
+                            data_block = [folders_aligned, website, username_to_add]
+                            fileset.append(data_block)
+                            print('username added to list, continuing')
                             continue
 
                         sleep(2)
                         print('alright, ' + str(len(fileset)) + ' passwords coming right up!')
-                        sleep(1)
-                        print('please note that due to the complexity of this part, it will be displayed by folder path layout\n which will look like this: [rootfolder]/[website]/[username]/[password file]')
                         sleep(2)
-                        print('alright, with that out of the way, let\'s begin')
-                        sleep(1)
                         for x in fileset:
-                            pswd_to_add = input('[enter the password you want to set for' + x + ']:')
+                            pswd_to_add = input('[enter the password you want to set for username ' + x[2] + 'in website ' + x[1] + ']: ')
                             sleep(1)
-                            if os.path.exists(x):
+                            if os.path.exists(x[0]):
                                 print('user already exists, overwrite?')
                                 opt = input('[y/n]:')
                                 sleep(1)
                                 if opt == 'y':
                                     if encrypt_opt == True:
-                                        encrypt(x, pswd_to_add)
+                                        encrypt(x[0], pswd_to_add)
                                         sleep(2)
                                         print('password overwritten and encrypted')
                                         continue
@@ -237,8 +198,9 @@ if current_os == 'Windows':
                                     sleep(1)
                                     continue
                             else:
+                                os.makedirs(root_folder + '/' + x[1] + '/' + x[2])
                                 if encrypt_opt == True:
-                                    encrypt(x, pswd_to_add)
+                                    encrypt(x[0], pswd_to_add)
                                     print('password file created and encrypted')
                                     sleep(1)
                                     continue
@@ -345,13 +307,7 @@ if current_os == 'Windows':
                                 continue
                     elif create_mode == 4:
                         print('so you want to generate multiple passwords? ok then, let\'s begin')
-                        sleep(1)
-                        print('if you haven\'t used the other multi-add mode, then here is a reminder')
                         sleep(2)
-                        print('as stated before, the "multi-add" system in place is quie complex and will be displayed in the following format: [rootfolder]/[website]/[username]/[password file]')
-                        sleep(2)
-                        print('and with that out of the way, let\'s begin')
-                        sleep(1)
 
                         fileset = []
                         while True:
@@ -434,44 +390,7 @@ if current_os == 'Windows':
                     attempts = 3
                     print('but first, you must enter your password to view a password')
                     sleep(1)
-                    while True:
-                        pswd_input = getpass('[enter your password]: ')
-                        sleep(1)
-
-                        if pswd_input == locking_pswd:
-                            print('access granted')
-                            sleep(1)
-                            if log_opt == True:
-                                granted()
-                            else:
-                                pass
-                            break
-                        else:
-                            attempts = attempts - 1
-                            if attempts <= 0:
-                                print('no attempts remaining, locking access to script...')
-                                current_time = time.mktime(localtime())
-                                
-                                lockout_time = current_time + 86400.0
-                                f = open('lockout.txt', 'w')
-                                f.write(lockout_time)
-                                f.close()
-                                sleep(1)
-                                print('you have now been blocked from accessing this script. you will be able to access the script again after:' + lockout_time.strftime('%x') + ', ' + lockout_time.strftime('%X'))
-                                sleep(2)
-                                if log_opt == True:
-                                     lockout_log()
-                                else:
-                                    pass
-                                exit()
-                            else:
-                                print('access denied, you have ' + str(attempts) + ' remaining, try again')
-                                sleep(1)
-                                if log_opt == True:
-                                    denied()
-                                else:
-                                    pass
-                                continue
+                    
                 else:
                     pass
                 print('so what do you want to do?\noptions are:\n1: view a single password\n2: view multiple passwords\n3 view all passwords')
@@ -569,3 +488,19 @@ if current_os == 'Windows':
                             else:
                                 pass
                             username = input('[now enter the username of that website to view the password of]: ')
+                            sleep(1)
+                            folders_aligned = root_folder + '/' + website + '/' + username + '/password.txt'
+                            data_block = [folders_aligned, website, username]
+                            pswds_2_read.append(data_block)
+                            print('password queued, continuing...')
+                            sleep(1)
+                            continue
+                        sleep(1)
+                        print('alright, want to see ' + str(len(pswds_2_read)) + ' passwords? let\'s get started then')
+                        sleep(1)
+
+                        for e in pswds_2_read:
+                            sleep(0.5)
+                            if os.path.exists(e[0]):
+                                print('file present, reading...')
+                                sleep(1)

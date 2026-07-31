@@ -1,4 +1,4 @@
-from cryptography.fernet import Fernet # pyright: ignore[reportMissingImports]
+from cryptography.fernet import Fernet
 from time import sleep
 import os 
 def encrypt(file, password):

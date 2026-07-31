@@ -10,3 +10,4 @@ config/pwp_opt.txt
 config/root_folder.txt
 test scripts/nested list call.py
 test scripts/test generator.py
+test scripts/color text.py
