@@ -502,5 +502,24 @@ if current_os == 'Windows':
                         for e in pswds_2_read:
                             sleep(0.5)
                             if os.path.exists(e[0]):
-                                print('file present, reading...')
-                                sleep(1)
+                                if encrypt_opt == True:
+                                    pswd = m_decrypt(e[0])
+                                    sleep(1)
+                                    print('password for username: ' + e[2] + ' in website: ' + e[1] + ' is: ' + pswd)
+                                else:
+                                    f = open(e[0], 'r')
+                                    pswd = f.read()
+                                    f.close()
+                                    print('password for username: ' + e[2] + ' in website: ' + e[1] + ' is: ' + pswd)
+                            else:
+                                print('password skipped, does not exist')
+                            sleep(0.5)
+                        print('all passwords have been shown, returning to menu')
+                        sleep(1)
+                        continue
+                    elif view_mode_opt == 3:
+                        print('you want to view all your passwords? let\'s get started then')
+                        sleep(1)
+                        current_websites = os.listdir(root_folder)
+                        if len(current_websites) <= 0:
+                            print('there are no passwords to see here right now')
