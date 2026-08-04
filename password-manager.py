@@ -523,3 +523,49 @@ if current_os == 'Windows':
                         current_websites = os.listdir(root_folder)
                         if len(current_websites) <= 0:
                             print('there are no passwords to see here right now')
+                            sleep(1)
+                            continue
+                        else:
+                            print('you currently have ' + len(current_websites) + ' websites set in the manager, so let\'s get to it')
+                        for e in current_websites:
+                            print('users in website [' + e + ']:')
+                            sleep(1)
+                            usrlist = os.listdir(root_folder + '/' + e)
+                            for x in usrlist:
+                                folders_aligned = root_folder + '/' + e + '/' + x + '/password.txt'
+                                if encrypt_opt == True:
+                                    pswd = m_decrypt(folders_aligned)
+                                    print('password for user ' + x + ' is: ' + pswd)
+                                else:
+                                    f = open(folders_aligned, 'r')
+                                    pswd = f.read()
+                                    f.close()
+                                    print('password for user ' + x + ' is: ' + pswd)
+                                sleep(0.5)
+                            sleep(1)
+                        print('all passwords listed, returning to menu')
+                        continue
+            elif menu_opt == 3:
+                print('so you want to modify a password? ok then')
+                sleep(1)
+                if pswd_protection == True:
+                    print('but first, you must enter your password to continue')
+                    sleep(1)
+                    auth(locking_pswd)
+                    sleep(1)
+                else:
+                    pass
+                print('since you want to modify a password, what exactly do you want to do?')
+                sleep(1)
+                try:
+                    pswd_mod_mode = int(input('your options are:\n1: modify password\n2: remove a password\n[enter your option]: '))
+                    sleep(1)
+                except:
+                    sleep(1)
+                    print('that input is invalid, input must be a number, try again')
+                    continue
+                else:
+                    if pswd_mod_mode == 1:
+                        print('so you want to update/overwrite a password?')
+                        sleep(1)
+                        website = input('[enter the website that password is in]: ')
