@@ -84,7 +84,7 @@ if current_os == 'Windows':
         try:
             menu_opt = int(input('1: create a password\n2: view a password\n3: modify a password\n4: view access log\n5: modify configuration\n6: view manager info\n7: exit program\n[choose an option]: '))
             sleep(1)
-        except TypeError:
+        except:
             print('must be an integer, or a number from the menu selection, try again')
         else:
             if menu_opt == 1:
@@ -569,3 +569,11 @@ if current_os == 'Windows':
                         print('so you want to update/overwrite a password?')
                         sleep(1)
                         website = input('[enter the website that password is in]: ')
+                        sleep(1)
+                        if os.path.exists(root_folder + '/' + website):
+                            pass
+                        else:
+                            print('website is not present, please try again')
+                            sleep(1)
+                            continue
+                        username = input('[now enter the username of that site]: ')
