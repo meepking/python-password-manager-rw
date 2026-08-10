@@ -142,3 +142,14 @@ def lockout_log():
     f.write('[' + t.strftime('%x') + ', ' + t.strftime('%X') + ']: password has been entered too many times incorrectly, user access blocked for 12 hours\n')
     f.write('-------------------------------\n')
     f.close()
+def clear_file():
+    file = 'C:/python password manager rw/config/access.txt'
+
+    f = open(file, 'r')
+    content = f.readlines()
+    f.close()
+    del content[2:]
+
+    f = open(file, 'w')
+    f.writelines(content)
+    f.close()

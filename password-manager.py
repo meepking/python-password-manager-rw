@@ -117,7 +117,7 @@ if current_os == 'Windows':
                                 sleep(2)
                                 if encrypt_opt == True:
                                     file_to_encrypt = root_folder + '/' + website + '/' + username_to_add + '/password.txt'
-                                    encrypt(file_to_encrypt, pswd_to_add)
+                                    encrypt(file_to_encrypt, pswd_to_add.encode())
                                     print('password updated')
                                     sleep(1)
                                     continue
@@ -144,7 +144,7 @@ if current_os == 'Windows':
                                 sleep(2)
                                 print('password file created and encrypted')
                             else:
-                                f = open(root_folder + '/' + website + '/' + username_to_add + '/password.txt')
+                                f = open(root_folder + '/' + website + '/' + username_to_add + '/password.txt', 'w')
                                 f.write(pswd_to_add)
                                 f.close()
                                 sleep(1)
@@ -200,7 +200,7 @@ if current_os == 'Windows':
                             else:
                                 os.makedirs(root_folder + '/' + x[1] + '/' + x[2])
                                 if encrypt_opt == True:
-                                    encrypt(x[0], pswd_to_add)
+                                    encrypt(x[0], pswd_to_add.encode())
                                     print('password file created and encrypted')
                                     sleep(1)
                                     continue
@@ -260,7 +260,7 @@ if current_os == 'Windows':
                                 sleep(1)
 
                                 if encrypt_opt == True:
-                                    encrypt(folders_aligned, password)
+                                    encrypt(folders_aligned, password.encode())
                                     sleep(1)
 
                                     print('generated password created to file and encrypted')
@@ -293,7 +293,7 @@ if current_os == 'Windows':
                             sleep(2)
 
                             if encrypt_opt == True:
-                                encrypt(folders_aligned, password)
+                                encrypt(folders_aligned, password.encode())
                                 sleep(1)
                                 print('password added and encrypted')
                                 sleep(1)
@@ -349,7 +349,7 @@ if current_os == 'Windows':
                                     print('overwriting...')
                                     sleep(1)
                                     if encrypt_opt == True:
-                                        encrypt(e[0], password)
+                                        encrypt(e[0], password.encode())
                                         print('overwrite complete')
                                         continue
                                     else:
@@ -364,7 +364,7 @@ if current_os == 'Windows':
                                     continue
                             else:
                                 if encrypt_opt == True:
-                                    encrypt(e[0], password)
+                                    encrypt(e[0], password.encode())
                                     print('password created and encrypted, continuing...')
                                     sleep(1)
                                     continue
@@ -389,6 +389,7 @@ if current_os == 'Windows':
                 if pswd_protection == True:
                     attempts = 3
                     print('but first, you must enter your password to view a password')
+                    auth(locking_pswd)
                     sleep(1)
                     
                 else:
@@ -577,3 +578,36 @@ if current_os == 'Windows':
                             sleep(1)
                             continue
                         username = input('[now enter the username of that site]: ')
+                        folders_aligned = root_folder + '/' + website + '/' + username + '/password.txt'
+                        sleep(1)
+                        if os.path.exists(folders_aligned):
+                            pass
+                        else:
+                            print('the username folder and/or the password file, does not exist, try again')
+                            sleep(1)
+                            continue
+
+                        if encrypt_opt == True:
+                            password = decrypt(folders_aligned)
+                        else:
+                            f = open(folders_aligned, 'r')
+                            password = f.read()
+                            f.close()
+
+                        print('your password right now is ' + password)
+                        sleep(1)
+                        edit_opt = input('are you sure you want to change it?\n[y/n]: ')
+                        sleep(1)
+                        if edit_opt == 'y':
+                            while True:
+                                new_pswd = input('[input the password you want to use in place of the old one]: ')
+                                sleep(1)
+                                final_opt = input('are you sure you want to change your current password?\n[y/n]: ')
+                                sleep(1)
+                                if final_opt == 'y':
+                                    if encrypt_opt == True:
+                                        encrypt(folders_aligned, new_pswd.encode())
+                                        print('password updated')
+                                        sleep(1)
+                                        break
+                                    

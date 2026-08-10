@@ -125,14 +125,14 @@ def enc_opt_check():
         opt = f.read()
         f.close()
 
-        if opt == 'True' or opt == True:
+        if opt == 'True':
             print('encryption feature enabled, passwords unreadable without this script')
 
-            return 'True'
-        elif opt == 'False' or opt == False:
+            return True
+        elif opt == 'False':
             print('WARNING: encryption feature disabled, all passwords are currently in plaintext and readable')
 
-            return 'False'
+            return False
     
     else:
         print('file containing the option to encrypt password files is not present')
@@ -150,7 +150,7 @@ def enc_opt_check():
             f.write('True')
             f.close()
 
-            return 'True'
+            return True
         elif en_opt == 'n':
             print('ok, it will be disabled, but don\'t say I didn\'t warn you')
             sleep(2)
@@ -158,7 +158,7 @@ def enc_opt_check():
             f.write('False')
             f.close()
 
-            return 'False'
+            return False
 def pwp_check():
     config_folder_path = 'C:/python password manager rw/config'
     pwp_opt_file = config_folder_path + '/pwp_opt.txt'
