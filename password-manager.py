@@ -646,3 +646,35 @@ if current_os == 'Windows':
                             continue
                     elif pswd_mod_mode == 2:
                         print('so you want to remove a password? ok then')
+                        sleep(1)
+                        website = input('[enter the website of the user you want to remove]: ')
+                        sleep(1)
+                        website_chk = root_folder + '/' + website
+
+                        if os.path.exists(website_chk):
+                            pass
+                        else:
+                            print('website does not exist, please try again')
+                            sleep(1)
+                            continue
+                        username = input('[now enter the username of the password you wish to remove]: ')
+                        sleep(1)
+
+                        usr_chk = website_chk + '/' + username
+
+                        if os.path.exists(usr_chk) and os.path.exists(usr_chk + '/password.txt'):
+                            print('WARNING: you are about to remove a password from the manager, are you sure you want to proceed? this cannot be undone!')
+                            final_opt = input('[y/n]: ')
+                            sleep(1)
+                            if final_opt == 'y':
+                                print('ok then, deleting file and username...')
+                                sleep(1)
+                                folders_aligned = usr_chk + '/password.txt'
+                                try:
+                                    os.remove(folders_aligned)
+                                except PermissionError:
+                                    print('it would seem that there are issues with removing the file, something is blocking this script from removing the file. you will have to remove the file yourself via file explorer')
+                                    sleep(3)
+                                    continue
+                                except FileNotFoundError:
+                                    print('huh, I guess the file is already gone')
