@@ -610,4 +610,39 @@ if current_os == 'Windows':
                                         print('password updated')
                                         sleep(1)
                                         break
-                                    
+                                    else:
+                                        f = open(folders_aligned, 'w')
+                                        f.write(new_pswd)
+                                        f.close()
+                                        print('password updated')
+                                        sleep(1)
+                                        break
+                                elif final_opt == 'n':
+                                    print('ok, but do you still want to edit that password?')
+                                    opt = input('[y/n]: ')
+                                    if opt == 'y':
+                                        print('ok, then try again')
+                                        sleep(1)
+                                        continue
+                                    elif opt == 'n':
+                                        print('changed your mind? ok then')
+                                        sleep(1)
+                                        break
+                                    else:
+                                        print('that is not a valid option here, try again')
+                                        sleep(1)
+                                        continue
+                                else:
+                                    print('that is not a valid option, try again')
+                                    sleep(1)
+                                    continue
+                        elif edit_opt == 'n':
+                            print('changed your mind? that\'s fine')
+                            sleep(1)
+                            continue
+                        else:
+                            print('that is not a valid option, try again')
+                            sleep(1)
+                            continue
+                    elif pswd_mod_mode == 2:
+                        print('so you want to remove a password? ok then')
