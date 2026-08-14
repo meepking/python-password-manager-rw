@@ -728,4 +728,4 @@ if current_os == 'Windows':
                 lockopt_modified = False
                 logopt_modified = False
                 while True:
-                    print('so what do you want to change?\n1: root folder\n2: option to encrypt passwords\n3: password protection\n4')
+                    print('so what do you want to change?\n1: root folder\n2: option to encrypt passwords\n3: password protection\n4: change password for password protection system\n5: logging functionality')
