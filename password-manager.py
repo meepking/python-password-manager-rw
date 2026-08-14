@@ -19,6 +19,7 @@ except ModuleNotFoundError:
     subprocess.run('pip install cryptography', capture_output=True)
     sleep(1)
     print('install complete, will now exit script, start it again for module to take effect, if it shows that it fails, you may not have pip installed and implemented')
+    sleep(3)
     exit()
 else:
     pass
@@ -63,10 +64,8 @@ if current_os == 'Windows':
     sleep(2)
     encrypt_opt = enc_opt_check()
     
-    sleep(2)
     pswd_protection = pwp_check()
 
-    sleep(2)
     locking_pswd = lock_check(pswd_protection)
 
     sleep(2)
@@ -678,3 +677,55 @@ if current_os == 'Windows':
                                     continue
                                 except FileNotFoundError:
                                     print('huh, I guess the file is already gone')
+                                    sleep(1)
+                                    print('so now the user folder can be removed')
+                                    sleep(1)
+                                    os.rmdir(usr_chk)
+                                    print('and done!')
+                                except:
+                                    print('I guess something else has happened, to where the file cannot be removed by this script. you will have to do that yourself')
+                                    sleep(1)
+                                else:
+                                    print('and done! now to remove user folder')
+                                    sleep(1)
+                                    os.rmdir(usr_chk)
+                                    print('and its gone')
+                                    sleep(1)
+                                finally:
+                                    if len(os.listdir(website_chk)) == 0:
+                                        print('the website folder also appears to be empty, therefor will also be deleted')
+                                        sleep(1)
+                                        os.rmdir(website_chk)
+                                        print('and done')
+                                    else:
+                                        pass
+            elif menu_opt == 4:
+                print('opening log...')
+                sleep(2)
+                f = open(config_folder + '/access.txt', 'r')
+                main_file = f.read()
+                f.close()
+                print('[[[start of file]]]')
+                sleep(1)
+                print(main_file)
+                sleep(1)
+                print('[[[end of file]]]')
+                input('[press enter to continue]')
+            elif menu_opt == 5:
+                print('so you want to change the manager configuration? ok then')
+                sleep(1)
+                if pswd_protection == True:
+                    print('but first, you must enter in your password to change the config')
+                    sleep(1)
+                    auth(locking_pswd)
+                    sleep(1)
+                else:
+                    pass
+
+                rootfolder_modified = False
+                encryptopt_modified = False
+                lockpswd_modified = False
+                lockopt_modified = False
+                logopt_modified = False
+                while True:
+                    print('so what do you want to change?\n1: root folder\n2: option to encrypt passwords\n3: password protection\n4')

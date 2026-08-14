@@ -23,7 +23,7 @@ def authenticate(current_pswd):
             attempts = attempts - 1
             if attempts <= 0:
                 print('no attempts remaining, locking access to script...')
-                current_time = time.mktime(localtime())                    
+                current_time = mktime(localtime())                    
                 lockout_time = current_time + 86400.0
                 f = open('lockout.txt', 'w')
                 f.write(lockout_time)
