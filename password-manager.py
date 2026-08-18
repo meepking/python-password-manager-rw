@@ -526,7 +526,7 @@ if current_os == 'Windows':
                             sleep(1)
                             continue
                         else:
-                            print('you currently have ' + len(current_websites) + ' websites set in the manager, so let\'s get to it')
+                            print('you currently have ' + str(len(current_websites)) + ' websites set in the manager, so let\'s get to it')
                         for e in current_websites:
                             print('users in website [' + e + ']:')
                             sleep(1)
@@ -729,3 +729,11 @@ if current_os == 'Windows':
                 logopt_modified = False
                 while True:
                     print('so what do you want to change?\n1: root folder\n2: option to encrypt passwords\n3: password protection\n4: change password for password protection system\n5: logging functionality')
+                    config_opt = input('[enter your option]')
+                    sleep(1)
+                    if config_opt == 1:
+                        if rootfolder_modified == True:
+                            print('you already modified where your folder is going to be, you want to change it again?')
+                        else:
+                            print('so you want to change where your folder is')
+                        sleep(1)

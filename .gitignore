@@ -12,3 +12,4 @@ test scripts/nested list call.py
 test scripts/test generator.py
 test scripts/color text.py
 __pycache__/auth.cpython-314.pyc
+/.vs
