@@ -164,12 +164,14 @@ def m_decrypt(file):
         sleep(2)
         print('will now exit script')
         exit()
-    
-    f = open(file, 'r')
-    
-    contents = f.read()
-    f.close()
-    pre_decrypt = contents.encode()
-    
-    decrypted = fern.decrypt(pre_decrypt)
-    return decrypted.decode()
+    try:
+        f = open(file, 'r')
+    except:
+        return '[skipped]'
+    else:
+        contents = f.read()
+        f.close()
+        pre_decrypt = contents.encode()
+        
+        decrypted = fern.decrypt(pre_decrypt)
+        return decrypted.decode()

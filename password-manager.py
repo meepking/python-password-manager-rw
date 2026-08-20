@@ -733,7 +733,58 @@ if current_os == 'Windows':
                     sleep(1)
                     if config_opt == 1:
                         if rootfolder_modified == True:
-                            print('you already modified where your folder is going to be, you want to change it again?')
+                            print('you already modified where your folder is going to be, you want to change it again, or do you want to restore it to what it was before?')
+                            opt = input('[(c)hange/(r)estore]: ')
+                            sleep(1)
+                            if opt == 'c' or opt == 'change':
+                                print('so you want to change it again? ok then')
+                                sleep(1)
+                                new_path = input('[enter the path you want to set instead]: ')
+                                sleep(1)
+                                if os.path.exists(new_path):
+                                    pass
+                                else:
+                                    print('file path is not present, attepting to create path...')
+                                    sleep(1)
+                                    try:
+                                        os.makedirs(new_path)
+                                    except:
+                                        print('path creation failed, you will have to create your desired path and try again')
+                                        sleep(2)
+                                        continue
+                                    else:
+                                        print('path created successfully')
+                                        sleep(1)
+                                print('now adding to file...')
+                                sleep(1)
+                                root_folder_file = 'C/password manager rw/config/root_folder.txt'
+                                f = open(root_folder_file, 'w')
+                                f.write(new_path)
+                                f.close()
+                                print('path added to file, returning to config menu...')
+                                sleep(1)
+                                continue
                         else:
                             print('so you want to change where your folder is')
                         sleep(1)
+                        new_path = input('[enter the new path you wish to set(must be a valid path)]: ')
+                        sleep(1)
+                        if os.path.exists(new_path):
+                            pass
+                        else:
+                            print('folder is not present, attempting to create folder...')
+                            sleep(1)
+                            try:
+                                os.makedirs(new_path)
+                            except:
+                                print('path creation failed, please make sure that it is a valid path and try again')
+                                continue
+                            else:
+                                print('folder creation successful, now adding to file')
+                                sleep(1)
+                            root_folder_file = 'C/password manager rw/config/root_folder.txt'
+                            f = open(root_folder_file, 'w')
+                            f.write(new_path)
+                            f.close()
+                            rootfolder_modified = True
+                            print('root folder changed')
