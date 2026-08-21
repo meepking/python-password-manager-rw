@@ -764,6 +764,19 @@ if current_os == 'Windows':
                                 print('path added to file, returning to config menu...')
                                 sleep(1)
                                 continue
+                            elif opt == 'r' or opt == 'restore':
+                                print('back to the way it was huh? alright')
+                                sleep(1)
+                                print('using previously configured root folder...')
+                                sleep(2)
+                                root_folder_file = 'C/password manager rw/config/root_folder.txt'
+                                f = open(root_folder_file, 'w')
+                                f.write(root_folder)
+                                f.close()
+                                print('root folder restored to ' + root_folder)
+                                sleep(1)
+                                rootfolder_modified = False
+                                continue
                         else:
                             print('so you want to change where your folder is')
                         sleep(1)
@@ -788,3 +801,32 @@ if current_os == 'Windows':
                             f.close()
                             rootfolder_modified = True
                             print('root folder changed')
+                            continue
+                    elif config_opt == 2:
+                        print('checking current option...')
+                        sleep(2)
+                        if encrypt_opt == True:
+                            print('the option to encrypt your password files is currently enabled')
+                            sleep(1)
+                            print('are you sure you want to disable this?')
+                            opt = input('[y/n]: ')
+                            sleep(1)
+                            if opt == 'y':
+                                print('ok, disabling encryption...')
+                                sleep(1)
+                                f = open('C:/password manager rw/config/enc.txt', 'w')
+                                f.write('False')
+                                f.close()
+                                print('encryption disabled')
+                                sleep(1)
+                                encryptopt_modified = True
+                                continue
+                            elif opt == 'n':
+                                print('changed your mind? that is fine, it is better to keep this feature on anyway')
+                                sleep(1)
+                                continue
+                            else:
+                                print('that option is not valid, try again')
+                                sleep(1)
+                                continue
+                            
