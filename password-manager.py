@@ -829,4 +829,11 @@ if current_os == 'Windows':
                                 print('that option is not valid, try again')
                                 sleep(1)
                                 continue
-                            
+                        else:
+                            print('encryption is currently disabled')
+                            sleep(1)
+                            print('do you want to enable encryption')
+                            opt = input('[y/n]: ')
+                            sleep(1)
+                            if opt == 'y':
+                                print('ok, enabling encryption')
