@@ -837,3 +837,35 @@ if current_os == 'Windows':
                             sleep(1)
                             if opt == 'y':
                                 print('ok, enabling encryption')
+                                sleep(1)
+                                f = open('C:/password manager rw/config/enc.txt', 'w')
+                                f.write('True')
+                                f.close()
+                                print('encryption enabled')
+                                sleep(1)
+                                encryptopt_modified = True
+                                continue
+                            elif opt == 'n':
+                                print('don\'t want it? fine then')
+                                sleep(1)
+                                continue
+                            else:
+                                print('that is not a valid option, try again')
+                                sleep(1)
+                                continue
+                    elif config_opt == 3:
+                        print('so you want to change whether you want password protection or not? ok then')
+                        sleep(2)
+                        if pswd_protection == True:
+                            print('password protection is currently enabled, are you absolutely sure you want to disable that?')
+                            opt = input('[y/n]: ')
+                            sleep(1)
+                            if opt == 'y':
+                                print('fine, it shall be disabled')
+                                sleep(1)
+                                print('side note; I am not responsible for the loss of your passwords in the event that someone ends up taking them, you have been warned')
+                                sleep(2)
+                                f = open('C:/password manager rw/config/pwp_opt.txt', 'w')
+                                f.write('False')
+                                f.close()
+                                print('password protection disabled')
