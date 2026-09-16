@@ -869,3 +869,23 @@ if current_os == 'Windows':
                                 f.write('False')
                                 f.close()
                                 print('password protection disabled')
+                                sleep(1)
+                                continue
+                            elif opt == 'n':
+                                print('change your mind? ok then, best to keep it on anyway')
+                                sleep(1)
+                                continue
+                            else:
+                                print('that option is invalid, please try again')
+                                sleep(1)
+                                continue
+                        else:
+                            print('password protection is currently disabled, do you wish to enable that?')
+                            opt = input('[y/n]: ')
+                            sleep(1)
+                            if opt == 'y':
+                                print('good answer, enabling password protection...')
+                                sleep(1)
+                                f = open('C:/password manager rw/config/pwp_opt.txt', 'w')
+                                f.write('True')
+                                f.close()
