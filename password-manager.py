@@ -724,11 +724,8 @@ if current_os == 'Windows':
 
                 rootfolder_modified = False
                 encryptopt_modified = False
-                lockpswd_modified = False
-                lockopt_modified = False
-                logopt_modified = False
                 while True:
-                    print('so what do you want to change?\n1: root folder\n2: option to encrypt passwords\n3: password protection\n4: change password for password protection system\n5: logging functionality')
+                    print('so what do you want to change?\n1: root folder\n2: option to encrypt passwords\n3: password protection\n4: change password for password protection system\n5: logging functionality\n6: apply changes and exit')
                     config_opt = input('[enter your option]')
                     sleep(1)
                     if config_opt == 1:
@@ -889,3 +886,93 @@ if current_os == 'Windows':
                                 f = open('C:/password manager rw/config/pwp_opt.txt', 'w')
                                 f.write('True')
                                 f.close()
+                                print('and it has been enabled')
+                                sleep(1)
+                                continue
+                            elif opt == 'n':
+                                print('surely you have a good reason to not enable it, don\'t you?')
+                                sleep(2)
+                                continue
+                            else:
+                                print('that is not an option, try again')
+                                sleep(1)
+                                continue
+                    elif config_opt == 4:
+                        print('so you want to change your root password? ok then')
+                        sleep(2)
+                        print('as a reminder, your password that you enter here will always be encrypted regardless of your preference that you have set at initialization or if you have changed that option')
+                        sleep(3)
+                        new_locking_pswd = input('[enter the new password you want to use]: ')
+                        sleep(1)
+                        if new_locking_pswd == '':
+                            print('this cannot be blank, try again')
+                            sleep(1)
+                            continue
+                        final_opt = input('do you want to use this as your new root password?\n[y/n]: ')
+                        sleep(1)
+                        if final_opt == 'y':
+                            print('alright, updating password...')
+                            sleep(2)
+                            pswd_file = 'C:/python password manager rw/config/lock.txt'
+                            encrypt(pswd_file, new_locking_pswd)
+                            print('new password set')
+                            sleep(1)
+                            continue
+                        elif final_opt == 'n':
+                            print('change your mind, alright then')
+                            sleep(1)
+                            continue
+                        else:
+                            print('that is not a valid option, try again')
+                            sleep(1)
+                            continue
+                    elif config_opt == 5:
+                        print('so you want to toggle the logging functionality? ok then')
+                        sleep(2)
+                        if log_opt == True:
+                            print('logging is currently enabled, do you wish to disable logging?')
+                            log_opt_ch = input('[y/n]: ')
+                            sleep(1)
+                            if log_opt_ch == 'y':
+                                print('ok, disabling logging...')
+                                sleep(2)
+                                f = open('C:/python password manager rw/config/log-opt.txt', 'w')
+                                f.write('False')
+                                f.close()
+                                print('logging functionality disabled')
+                                sleep(1)
+                                continue
+                            elif log_opt_ch == 'n':
+                                print('changed your mind? that\'s fine')
+                                sleep(1)
+                                continue
+                            else:
+                                print('that is not a valid option, try again')
+                                sleep(1)
+                                continue
+                        else:
+                            print('logging is currently disabled, do you wish to enable logging?')
+                            log_opt_ch = input('[y/n]: ')
+                            sleep(1)
+                            if log_opt_ch == 'y':
+                                print('ok, enabling logging functionality...')
+                                sleep(2)
+                                f = open('C:/python password manager rw/config/log-opt.txt', 'w')
+                                f.write('True')
+                                f.close()
+                                print('logging enabled')
+                                sleep(1)
+                                continue
+                            elif log_opt_ch == 'n':
+                                print('don\'t want it on? ok then')
+                                sleep(1)
+                                continue
+                            else:
+                                print('that is not a valid option, try again')
+                                sleep(1)
+                                continue
+                    elif config_opt == 6:
+                        print('all done here? alright, let\'s see what you have changed')
+                        sleep(1)
+                        break
+                
