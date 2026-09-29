@@ -975,4 +975,6 @@ if current_os == 'Windows':
                         print('all done here? alright, let\'s see what you have changed')
                         sleep(1)
                         break
-                
+                if rootfolder_modified == True or encryptopt_modified == True:
+                    print('ok, looks like somehing was changed, what is it specifically?')
+                    sleep(2)
