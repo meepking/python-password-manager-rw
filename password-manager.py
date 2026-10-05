@@ -978,3 +978,59 @@ if current_os == 'Windows':
                 if rootfolder_modified == True or encryptopt_modified == True:
                     print('ok, looks like somehing was changed, what is it specifically?')
                     sleep(2)
+                    if rootfolder_modified == True:
+                        print('alright, looks like the root folder was changed, so let\'s do that')
+                        sleep(1)
+                        print('looking for websites to move...')
+                        sleep(1)
+                        current_root_state = os.listdir(root_folder)
+                        if len(current_root_state) == 0:
+                            print('there are no websites to move, therefor there is nothing to do here')
+                            sleep(2)
+                        else:
+                            print('there are currently ' + str(len(current_root_state)) + ' websites to look at, so let\'s get to moving stuff')
+                            sleep(2)
+                            f = open('C:/python password manager rw/config/root_folder.txt', 'r')
+                            new_root_folder = f.read()
+                            f.close()
+                            if os.path.exists(new_root_folder):
+                                pass
+                            else:
+                                try:
+                                    os.makedirs(new_root_folder)
+                                    sleep(1)
+                                except:
+                                    print('it would appear that the new root folder could not be made, likely because it is invalid')
+                                    sleep(1)
+                                    print('and since you have already put it into the file, we must overwrite it again with a valid path')
+                                    sleep(2)
+                                    while True:
+                                        alt_new_root = input('[enter the new root folder]: ')
+                                        sleep(1)
+                                        print('attempting to create new folder...')
+                                        sleep(3)
+                                        try:
+                                            os.makedirs(alt_new_root)
+                                        except:
+                                            print('well that don\'t work, try that again')
+                                            sleep(1)
+                                            continue
+                                        else:
+                                            f = open('C:/python password manager rw/config/root_folder.txt', 'w')
+                                            f.write(alt_new_root)
+                                            f.close()
+                                            new_root_folder = alt_new_root
+                                            break
+                                else:
+                                    pass
+                            for e in current_root_state:
+                                folder_aligned = root_folder + '/' + e
+                                current_web_state = os.listdir(folder_aligned)
+                                new_folder_aligned = new_root_folder + '/' + e
+                                os.mkdir(new_folder_aligned)
+                                for x in current_web_state:
+                                    folders_aligned = folder_aligned + '/' + x + '/password.txt'
+                                    f = open(folders_aligned, 'r')
+                                    pswd_2_write = f.read()
+                                    f.close()
+                                    new_folders_aligned = new_folder_aligned + '/' + x

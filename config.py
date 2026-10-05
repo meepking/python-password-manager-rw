@@ -42,6 +42,7 @@ def root_folder_check():
             return root_path
         else:
             print('for some reason, the root folder is not there, therefore will be added')
+            sleep(1)
             try:
                 os.makedirs(root_path)
             except:
