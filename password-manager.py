@@ -1029,8 +1029,35 @@ if current_os == 'Windows':
                                 new_folder_aligned = new_root_folder + '/' + e
                                 os.mkdir(new_folder_aligned)
                                 for x in current_web_state:
-                                    folders_aligned = folder_aligned + '/' + x + '/password.txt'
-                                    f = open(folders_aligned, 'r')
+                                    folders_aligned = folder_aligned + '/' + x
+                                    f = open(folders_aligned + '/password.txt', 'r')
                                     pswd_2_write = f.read()
                                     f.close()
                                     new_folders_aligned = new_folder_aligned + '/' + x
+                                    try:
+                                        os.mkdir(new_folders_aligned)
+                                    except:
+                                        print('username: ' + x + ' in website: '+ e + ' has been skipped, folder creation failed')
+                                        sleep(1)
+                                        continue
+                                    else:
+                                        pass
+                                    f = open(new_folders_aligned + '/password.txt', 'w')
+                                    f.write(pswd_2_write)
+                                    f.close()
+                                    os.remove(folders_aligned + '/password.txt')
+                                    os.rmdir(folders_aligned)
+                                os.rmdir(folder_aligned)
+                            sleep(1)
+                            print('transfer complete, changing root folder temporarily')
+                            root_folder = new_root_folder
+                            sleep(1)
+                    if encryptopt_modified == True:
+                        print('looks like you have changed your option to encrypt the password files, so let\'s get started')
+                        sleep(2)
+                        current_root_state = os.listdir(root_folder)
+                        if len(current_root_state) <= 0:
+                            print('there are no websites, therefore, there is nothing to change')
+                            sleep(1)
+                        else:
+                            print('there are currently ' + len(current_root_state) + ' websites in your root folder currently')
