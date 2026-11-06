@@ -299,4 +299,3 @@ def silent_log_opt_check():
             return False
     else:
         return False
-    
