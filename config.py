@@ -299,3 +299,22 @@ def silent_log_opt_check():
             return False
     else:
         return False
+def silent_enc_check():
+    config_folder_path = 'C:/python password manager rw/config'
+    enc_opt_file = 'C:/python password managor rw/enc.txt'
+
+    if os.path.exists(enc_opt_file):
+        pass
+    else:
+        return 404
+
+    f = open(enc_opt_file, 'r')
+    current_opt = f.read()
+    f.close()
+
+    if current_opt == 'True':
+        return True
+    elif current_opt == 'False':
+        return False
+    else:
+        return 'unknown'

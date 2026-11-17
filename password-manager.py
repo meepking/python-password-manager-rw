@@ -1061,3 +1061,64 @@ if current_os == 'Windows':
                             sleep(1)
                         else:
                             print('there are currently ' + len(current_root_state) + ' websites in your root folder currently')
+                            sleep(1)
+
+                            for e in current_root_state:
+                                folder_aligned = root_folder + '/' + e
+                                current_web_state = os.listdir(folder_aligned)
+                                for x in current_web_state:
+                                    folders_aligned = folder_aligned + '/' + x + 'password.txt'
+                                    if silent_enc_check == True:
+                                        encrypt_file(folders_aligned)
+                                    elif silent_enc_check == False:
+                                        decrypt_file(folders_aligned)
+                                    else:
+                                        print('something went wrong, unable to determine encryption option that has been set previously')
+                                        sleep(1)
+                                        exit()
+
+                            print('encryption change complete')
+                            sleep(2)
+                            print('script has finished configuration changes, changes made will take effect after script restart. exiting script...')
+                            sleep(1)
+                            exit()
+                else:
+                    print('if changes were made, a restart is required for effects to apply')
+                    sleep(1)
+                    print('exiting script...')
+                    sleep(2)
+                    exit()
+            elif menu_opt == 6:
+                print('so you want to access current information on your manager? alright then')
+                sleep(2)
+                current_root_state = os.listdir(root_folder)
+                pswd_count = 0
+                for e in current_root_state:
+                    current_web_state = os.listdir(root_folder + '/' + e)
+                    for x in current_web_state:
+                        pswd_count = pswd_count + 1
+
+                print('currently, you have: ' + str(len(current_root_state)) + ' websites in your root folder. \nand you have a total of: ' + str(len(pswd_count)) + ' passwords saved in your password manager')
+                sleep(2)
+                print('your current password manager configuration is as follows: ')
+                sleep(1)
+                print('your current root folder is: ' + root_folder)
+                sleep(1)
+                print('encryption is currently set to: ' + str(encrypt_opt))
+                sleep(1)
+                print('password protection is currently set to: ' + str(pswd_protection))
+                sleep(1)
+                print('logging is currently set to: ' + str(log_opt))
+                sleep(2)
+
+                print('this concludes the info report on the password manager')
+                sleep(1)
+                continue
+            elif menu_opt == 7:
+                print('thank you for using the password manager, have a nice day')
+                sleep(2)
+                exit()
+            else:
+                print('that option is invalid, please try again')
+                sleep(1)
+                continue
