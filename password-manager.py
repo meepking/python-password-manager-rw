@@ -9,6 +9,10 @@ from log import *
 from string import *
 import secrets
 from auth import authenticate as auth
+if platform.system() == 'Linux':
+    import distro as di
+else:
+    pass
 try:
     import cryptography
 except ModuleNotFoundError:
@@ -16,11 +20,37 @@ except ModuleNotFoundError:
     sleep(2)
     print('installing cryptography...')
     sleep(0.5)
-    subprocess.run('pip install cryptography', capture_output=True)
-    sleep(1)
-    print('install complete, will now exit script, start it again for module to take effect, if it shows that it fails, you may not have pip installed and implemented')
-    sleep(3)
-    exit()
+    if platform.system() == 'Linux':
+        if di.like() == 'arch':
+            try:
+                subprocess.run('sudo pacman -S --noconfirm python-cryptography', check=True)
+            except subprocess.CalledProcessError:
+                print('pacman has failed to install python-cryptography, you are going to have to do that on your own')
+                sleep(2)
+                print('script will now exit')
+                sleep(1)
+                exit()
+            else:
+                print('module successfully installed, script will now exit. start it again, and it should work properly')
+        else:
+            try:
+                subprocess.run('pip install cryptography', check=True)
+            except subprocess.CalledProcessError:
+                print('it would appear that pip has failed to download the cryptography library, it is likely becuase you have no internet, or pip is not even installed, either way, you will have to do that yourself')
+    else:
+        try:
+            subprocess.run('pip install cryptography', check=True)
+        except subprocess.CalledProcessError:
+            print('it would appear that pip has failed to install cryptography, it is likely that you don\'t have any internet, or you simply don\'t have pip installed, either way, you will have to do it yourself before the script can be used again')
+            sleep(2)
+            print('script will now exit...')
+            sleep(1)
+            exit()
+        else:
+            sleep(1)
+            print('install complete, will now exit script, start it again for module to take effect, if it shows that it fails, you may not have pip installed and implemented')
+            sleep(3)
+            exit()
 else:
     pass
 
@@ -66,7 +96,7 @@ if current_os == 'Windows':
     
     pswd_protection = pwp_check()
 
-    locking_pswd = lock_check(pswd_protection)
+    verify_file(pswd_protection)
 
     sleep(2)
     log_opt = log_opt_check()
@@ -1122,3 +1152,7 @@ if current_os == 'Windows':
                 print('that option is invalid, please try again')
                 sleep(1)
                 continue
+elif current_os == 'Linux':
+    print('Linux detected, using linux filesystem format')
+    sleep(2)
+    

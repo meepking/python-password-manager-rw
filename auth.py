@@ -5,8 +5,9 @@ from log import *
 from config import silent_log_opt_check
 
 
-def authenticate(current_pswd):
+def authenticate():
     attempts = 3
+    current_pswd = decrypt_lock
     log_opt = silent_log_opt_check()
     while True:
         pswd_input = getpass('[enter your password]: ')
@@ -44,3 +45,45 @@ def authenticate(current_pswd):
                 else:
                     pass
                 continue
+
+def verify_file(lock_opt):
+    lock_file = config_folder_path + '/lock.txt'
+    if lock_opt == True:
+        if os.path.exists('C:/python password manager rw/config/lock.txt'):
+            pass
+        else:
+            print('locking password file is not present')
+            sleep(1)
+            print('since you have chosen to enable password protection, you must set one')
+            sleep(2)
+            print('do be warned that this file will be encrypted regardless of what you have chosen for you passwords that will end up in the root folder')
+            sleep(3)
+            while True:
+                pswd_2_use = input('enter in the password you want to use\n[note: this will be the only time you will see it as you type it out]: ')
+                sleep(1)
+                if pswd_2_use == '':
+                    print('password cannot be blank, try again')
+                    sleep(1)
+                    continue
+                else:
+                    pass
+                
+                final_opt = input('continue with this password?\n[y/n]: ')
+                sleep(1)
+
+                if final_opt == 'y':
+                    print('alright then')
+                    sleep(1)
+                    encrypt(lock_file, pswd_2_use.encode())
+                    break
+                elif final_opt == 'n':
+                    print('changed your mind? then try again')
+                    sleep(1)
+                    continue
+                else:
+                    print('invalid response, try again')
+                    sleep(1)
+                    continue
+            print('new password has been set')
+    else:
+        pass
